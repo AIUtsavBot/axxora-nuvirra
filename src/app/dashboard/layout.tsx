@@ -13,7 +13,6 @@ const navItems = [
   { href: "/dashboard/campaigns", label: "Campaigns" },
   { href: "/dashboard/imports", label: "Imports" },
   { href: "/dashboard/settings", label: "Settings" },
-  { href: "/dashboard/pitch", label: "Pitch Deck" },
 ];
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
