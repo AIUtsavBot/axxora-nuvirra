@@ -17,11 +17,6 @@ export async function getSessionUser(): Promise<SessionUser | null> {
       return { email: data.user.email, mode: "supabase" };
     }
   }
-
-  if (process.env.VERCEL) {
-    return null;
-  }
-
   const cookieStore = await cookies();
   const demo = cookieStore.get(DEMO_COOKIE)?.value;
   return demo ? { email: demo, mode: "demo" } : null;

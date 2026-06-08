@@ -23,9 +23,6 @@ export async function loginAction(_: { error?: string } | null, formData: FormDa
       return { error: result.error };
     }
   } else {
-    if (process.env.VERCEL) {
-      return { error: "Supabase integration is required on Vercel." };
-    }
     await createDemoSession(email);
   }
 
