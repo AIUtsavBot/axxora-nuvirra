@@ -1,0 +1,8 @@
+node_modules/
+.next/
+tsconfig.tsbuildinfo
+.env.local
+.env
+src/lib/data/db.json
+venv/
+.venv/
