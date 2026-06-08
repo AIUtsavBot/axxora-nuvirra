@@ -3,26 +3,30 @@
 import { redirect } from "next/navigation";
 import { clearSession, createDemoSession, signInWithSupabase } from "@/lib/auth/session";
 
+import { hasSupabaseCredentials } from "@/lib/supabase/env";
+
 export async function loginAction(_: { error?: string } | null, formData: FormData) {
   const email = String(formData.get("email") ?? "").trim();
   const password = String(formData.get("password") ?? "").trim();
-  const mode = String(formData.get("mode") ?? "supabase");
 
-  if (!email) {
-    return { error: "Email is required." };
+  if (!email || !password) {
+    return { error: "Email and password are required." };
   }
 
-  if (mode === "demo") {
+  if (email !== "nuvirra9@gmail.com" || password !== "Nuvirra9@") {
+    return { error: "Invalid email or password." };
+  }
+
+  if (hasSupabaseCredentials()) {
+    const result = await signInWithSupabase(email, password);
+    if (!result.ok) {
+      return { error: result.error };
+    }
+  } else {
     if (process.env.VERCEL) {
-      return { error: "Demo mode is disabled on Vercel." };
+      return { error: "Supabase integration is required on Vercel." };
     }
     await createDemoSession(email);
-    redirect("/dashboard");
-  }
-
-  const result = await signInWithSupabase(email, password);
-  if (!result.ok) {
-    return { error: result.error };
   }
 
   redirect("/dashboard");

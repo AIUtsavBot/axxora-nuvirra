@@ -5,22 +5,21 @@ import { loginAction } from "../login.actions";
 
 const initialState = { error: "" };
 
-export function LoginForm({ demoMode }: { demoMode: boolean }) {
+export function LoginForm() {
   const [state, formAction, pending] = useActionState(loginAction, initialState);
 
   return (
     <form action={formAction} className="auth-card__form">
-      <input type="hidden" name="mode" value={demoMode ? "demo" : "supabase"} />
       <label>
         <span>Email</span>
-        <input name="email" type="email" placeholder="ops@nuvirra.com" required />
+        <input name="email" type="email" placeholder="nuvirra9@gmail.com" required />
       </label>
       <label>
         <span>Password</span>
-        <input name="password" type="password" placeholder={demoMode ? "Optional in demo mode" : "Your password"} />
+        <input name="password" type="password" placeholder="Your password" required />
       </label>
       {state?.error ? <p className="form-error">{state.error}</p> : null}
-      <button type="submit" disabled={pending}>{pending ? "Signing in..." : demoMode ? "Enter Demo Workspace" : "Sign in"}</button>
+      <button type="submit" disabled={pending}>{pending ? "Signing in..." : "Sign in"}</button>
     </form>
   );
 }

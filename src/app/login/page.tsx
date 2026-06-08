@@ -1,4 +1,3 @@
-import { hasSupabaseCredentials } from "@/lib/supabase/env";
 import { getSessionUser } from "@/lib/auth/session";
 import { redirect } from "next/navigation";
 import { LoginForm } from "./login-form";
@@ -6,8 +5,6 @@ import { LoginForm } from "./login-form";
 export default async function LoginPage() {
   const user = await getSessionUser();
   if (user) redirect("/dashboard");
-
-  const demoMode = !hasSupabaseCredentials() && !process.env.VERCEL;
 
   return (
     <main className="auth-shell">
@@ -24,12 +21,7 @@ export default async function LoginPage() {
           <div className="callout"><strong>Order workflows</strong><span>Create, update, and track orders without leaving the CRM.</span></div>
           <div className="callout"><strong>Import-ready</strong><span>CSV preview and import flows for historical message and order data.</span></div>
         </div>
-        <LoginForm demoMode={demoMode} />
-        <p className="auth-note">
-          {demoMode
-            ? "Supabase env vars are not configured, so demo mode is active. A local session cookie will be used for previewing the app."
-            : "Supabase auth is active. Use your admin credentials to enter the workspace."}
-        </p>
+        <LoginForm />
       </section>
     </main>
   );
