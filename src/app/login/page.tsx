@@ -7,7 +7,7 @@ export default async function LoginPage() {
   const user = await getSessionUser();
   if (user) redirect("/dashboard");
 
-  const demoMode = !hasSupabaseCredentials();
+  const demoMode = !hasSupabaseCredentials() && !process.env.VERCEL;
 
   return (
     <main className="auth-shell">

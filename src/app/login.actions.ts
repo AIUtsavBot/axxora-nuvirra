@@ -13,6 +13,9 @@ export async function loginAction(_: { error?: string } | null, formData: FormDa
   }
 
   if (mode === "demo") {
+    if (process.env.VERCEL) {
+      return { error: "Demo mode is disabled on Vercel." };
+    }
     await createDemoSession(email);
     redirect("/dashboard");
   }

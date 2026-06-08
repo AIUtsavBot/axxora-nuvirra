@@ -6,3 +6,5 @@ tsconfig.tsbuildinfo
 src/lib/data/db.json
 venv/
 .venv/
+
+.vercel
